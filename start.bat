@@ -1,1 +1,1 @@
-flask --app src/main run
+flask --app src/main run -h 0.0.0.0 -p 27000
