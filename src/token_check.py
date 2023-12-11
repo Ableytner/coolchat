@@ -4,13 +4,17 @@ from database.db_manager import DBManager
 
 def needs_auth(func):
     def wrap(*args, **kwargs):
-        if not "x-auth-token" in request.headers.keys():
+        if not "X-Auth-Token" in request.headers.keys():
             return {
                 "error": "no token found on header!"
             }
 
-        token = request.headers["x-auth-token"]
-        assert DBManager.get().get_user_from_token(token)
+        token = request.headers["X-Auth-Token"]
+        usr = DBManager.get().get_user_from_token(token)
+        if not usr:
+            return {
+                "error": "user with token not found!"
+            }
 
         result = func(*args, **kwargs)
 

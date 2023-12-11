@@ -2,18 +2,18 @@ import json
 import requests
 
 r = requests.post("http://127.0.0.1:27000/user", json.dumps({"username": "abi", "password": "pw21"}), headers={'Content-type': 'application/json'})
-user_id_1 = r.json()["user_id"]
 r = requests.post("http://127.0.0.1:27000/login", json.dumps({"username": "abi", "password": "pw21"}), headers={'Content-type': 'application/json'})
 token = r.json()["token"]
+user_id_1 = r.json()["user_id"]
 headers_1 = {'Content-type': 'application/json',
-             "x-auth-token": token}
+             "X-Auth-Token": token}
 
 r = requests.post("http://127.0.0.1:27000/user", json.dumps({"username": "kev", "password": "pw12"}), headers={'Content-type': 'application/json'})
-user_id_2 = r.json()["user_id"]
 r = requests.post("http://127.0.0.1:27000/login", json.dumps({"username": "kev", "password": "pw12"}), headers={'Content-type': 'application/json'})
 token = r.json()["token"]
+user_id_2 = r.json()["user_id"]
 headers_2 = {'Content-type': 'application/json',
-             "x-auth-token": token}
+             "X-Auth-Token": token}
 
 r = requests.get(f"http://127.0.0.1:27000/user/{user_id_1}", headers=headers_1)
 print(r.json())

@@ -14,7 +14,7 @@ class User(Base):
 
     __tablename__ = "user"
     user_id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    username = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    username = sqlalchemy.Column(sqlalchemy.String, nullable=False, unique=True)
     password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     token = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sent_messages = relationship("Message", foreign_keys="Message.sender_id", cascade="all,delete", uselist=True)
@@ -22,7 +22,8 @@ class User(Base):
 
     def to_dict(self):
         return {
-            "username": self.username
+            "username": self.username,
+            "user_id": self.user_id
         }
 
 class Message(Base):
